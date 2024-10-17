@@ -508,7 +508,7 @@ if param.extractRaw
     chansToPlotRaw(chansToPlotRaw>size(rawWaveforms.average,2))=[];
     vals =[];
     scalingFactor = range(-squeeze(rawWaveforms.average(iCluster, maxChanRaw, :))'+ ...
-                (ephysData.channel_positions(maxChan, 2) ))/1000;
+                (ephysData.channel_positions(maxChan, 2) ))/10;
     channel_positions = [ephysData.channel_positions; ephysData.channel_positions+ephysData.channel_positions];%hacky
 
     for iChanToPlot = 1:min(20, size(chansToPlotRaw, 1))
