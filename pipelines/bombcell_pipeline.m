@@ -12,19 +12,20 @@
 % quality metric thresholds depending on the summary plots (histograms 
 % of the distributions of quality metrics for each unit) and GUI. 
 
-
-%% set paths - EDIT THESE. Currently contains links to small toy dataset. 
-currentPath = [fileparts(matlab.desktop.editor.getActiveFilename), filesep, '..'];
-ephysKilosortPath = [currentPath, filesep, 'toy_data'];% path to your kilosort output files 
-ephysRawDir = "NaN"; % dir() path to your raw .bin or .dat data. currently NaN because storing raw data on github is cumbersome.
-% for testing: dir('/home/netshare/zaru/JF093/2023-03-06/ephys/site1/*ap*.*bin') 
-ephysMetaDir = dir([currentPath, filesep, 'demos', filesep, 'toy_data', filesep '*ap*.*meta']); % dir() path to your .meta or .oebin meta file
-savePath = '/media/julie/ExtraHD/toy_data_qMetrics'; % where you want to save the quality metrics 
-decompressDataLocal = '/media/julie/ExtraHD/decompressedData'; % where to save raw decompressed ephys data 
-gain_to_uV = NaN;%0.195; % use this if you are not using spikeGLX or openEphys to record your data. You then must leave the ephysMetaDir 
+%% set paths - EDIT THESE 
+recording_dir = '/media/jingjie/spike/spk_sorting/sndmap/JLI-R-0042_2024-09-03_09-35-00_g0';
+% [recording_info] = extract_xml_recording_config(recording_dir);
+% [path_info] = find_oe_recording_dir(recording_dir);
+[path_info] = utils.find_npx_recording_dir(recording_dir);
+path_info = path_info(1);
+ephysKilosortPath = path_info.spk_sorting_path;% path to your kilosort output files 
+ephysRawDir = dir(path_info.recording_data); % path to your raw .bin or .dat data
+ephysMetaDir = dir(path_info.meta_data_ap); % path to your .meta or .oebin meta file
+savePath = ephysKilosortPath; % where you want to save the quality metrics 
+decompressDataLocal = fullfile(path_info.recording_data_path,'temp'); % where to save raw decompressed ephys data 
+gain_to_uV = NaN; % use this if you are not using spikeGLX or openEphys to record your data. You then must leave the ephysMetaDir 
     % empty(e.g. ephysMetaDir = '')
-kilosortVersion = 2;% if using kilosort4, you need to change this value. Otherwise it does not matter. 
-
+kilosortVersion = 4;% if using kilosort4, you need to change this value. Otherwise it does not matter. 
 %% check MATLAB version 
 if exist('isMATLABReleaseOlderThan', 'file') == 0 % function introduced in MATLAB 2020b.
     oldMATLAB = true;
