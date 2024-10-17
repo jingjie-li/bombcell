@@ -36,14 +36,18 @@ if exist(fullfile([ephys_path filesep 'spike_clusters.npy']),'file')
        % to solve this, we need to see how many new clusters were generated
        % first, and then for each new cluster, we need to go back and see
        % which old cluster can be matched. Jingjie Li
-       spike_cluster_uq = unique(spike_cluster);
        spikeTemplates_uq = unique(spikeTemplates);
-       new_cluster_index = setdiff(spike_cluster_uq, spikeTemplates_uq);
+       new_cluster_index = max(spikeTemplates):max(spike_cluster);
     
-       new_cluster_matched_template_index = 0*new_cluster_index;
+       new_cluster_matched_template_index = 0*new_cluster_index';
        for ii = 1:numel(new_cluster_index)
            item_index = find(spike_cluster==new_cluster_index(ii));
-           new_cluster_matched_template_index(ii) = spikeTemplates(item_index(1));
+           if isempty(item_index)
+               % empty cluster index from manual curation
+               new_cluster_matched_template_index(ii) = 1;
+           else
+               new_cluster_matched_template_index(ii) = spikeTemplates(item_index(1));
+           end
        end
        spikeTemplates_uq = [spikeTemplates_uq;new_cluster_matched_template_index];
    end
