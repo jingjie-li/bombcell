@@ -42,7 +42,7 @@ end
 param.saveMatFileForGUI = 1; % save certain outputs at .mat file - useful for GUI
 
 % duplicate spikes parameters 
-param.removeDuplicateSpikes = 1;
+param.removeDuplicateSpikes = 0;
 param.duplicateSpikeWindow_s = 0.00001; % in seconds 
 param.saveSpikes_withoutDuplicates = 1;
 param.recomputeDuplicateSpikes = 0;
@@ -51,7 +51,7 @@ param.recomputeDuplicateSpikes = 0;
 param.detrendWaveform = 1; % If this is set to 1, each raw extracted spike is
     % detrended (we remove the best straight-fit line from the spike)
     % using MATLAB's builtin function detrend.
-param.nRawSpikesToExtract = 100; % how many raw spikes to extract for each unit 
+param.nRawSpikesToExtract = 2000; % how many raw spikes to extract for each unit 
 param.saveMultipleRaw = 0; % If you wish to save the nRawSpikesToExtract as well, 
     % currently needed if you want to run unit match https://github.com/EnnyvanBeest/UnitMatch
     % to track chronic cells over days after this
@@ -106,7 +106,7 @@ param.presenceRatioBinSize = 60; % in seconds
 
 % drift estimate
 param.driftBinSize = 60; % in seconds
-param.computeDrift = 0; % whether to compute each units drift. this is a 
+param.computeDrift = 1; % whether to compute each units drift. this is a 
     % critically slow step that takes around 2seconds per unit 
 
 % waveform parameters
