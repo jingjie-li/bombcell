@@ -55,7 +55,7 @@ if exist(fullfile([ephys_path filesep 'spike_clusters.npy']),'file')
 else 
   spike_templates_0idx = readNPY([ephys_path filesep 'spike_templates.npy']); 
   spikeTemplates = spike_templates_0idx + 1;
- end
+end
 
 
 % load spike times 
